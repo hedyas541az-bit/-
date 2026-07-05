@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الأغاني الوطنية المصرية</title>
+    <title>تطبيق الأغاني الوطنية المصرية المتكامل</title>
     <style>
-        /* تصميم عام يعبر عن الهوية المصرية */
+        /* تصميم وطني مريح ومتناسق */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f7f9fa;
@@ -19,19 +19,18 @@
         }
 
         header {
-            background-color: #ce1126; /* الأحمر الملكي لعلم مصر */
+            background-color: #ce1126; /* الأحمر للعلم */
             color: white;
             width: 100%;
             text-align: center;
             padding: 25px 0;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            border-bottom: 5px solid #c5a059; /* خط ذهبي كالنسر */
+            border-bottom: 5px solid #c5a059; /* الذهبي للنسر */
         }
 
         header h1 {
             margin: 0;
             font-size: 26px;
-            letter-spacing: 1px;
         }
 
         header p {
@@ -42,14 +41,14 @@
         }
 
         .container {
-            max-width: 550px;
+            max-width: 600px;
             width: 90%;
             margin: 35px auto;
             background: white;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             overflow: hidden;
-            border-bottom: 8px solid #000000; /* الأسود لعلم مصر */
+            border-bottom: 8px solid #000000; /* الأسود للعلم */
         }
 
         /* مشغل الأغنية الحالي */
@@ -77,7 +76,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            max-height: 400px;
+            max-height: 450px;
             overflow-y: auto;
         }
 
@@ -154,7 +153,7 @@
 
     <header>
         <h1>تحيا مصر 🇪🇬</h1>
-        <p>مكتبة الأغاني الوطنية الخالدة</p>
+        <p>مكتبة الأغاني والملفات الصوتية الوطنية المطلوبة</p>
     </header>
 
     <div class="container">
@@ -168,36 +167,77 @@
             </audio>
         </div>
 
-        <!-- قائمة الأغاني الوطنية بروابط حقيقية ومباشرة -->
+        <!-- قائمة الأغاني الوطنية الجديدة بالكامل -->
         <ul class="playlist">
-            <li class="song-item active" data-src="https://upload.wikimedia.org/wikipedia/commons/5/53/National_Anthem_of_Egypt.ogg" onclick="playSong(this, 'النشيد الوطني - بلادي بلادي', 'كوريل مصر')">
+            
+            <!-- 1. النشيد الوطني -->
+            <li class="song-item active" data-src="https://upload.wikimedia.org/wikipedia/commons/5/53/National_Anthem_of_Egypt.ogg" onclick="playSong(this, 'النشيد الوطني (بلادي بلادي)', 'موسيقى عسكرية')">
                 <div class="song-info">
                     <span class="song-title">النشيد الوطني (بلادي بلادي)</span>
-                    <span class="song-artist">موسيقى عسكرية</span>
+                    <span class="song-artist">موسيقى السلام الجمهوري المعتمد</span>
                 </div>
                 <button class="play-btn">▶</button>
             </li>
             
-            <li class="song-item" data-src="https://archive.org/download/Ahlef-Bsamaha/ahlef-bsamaha.mp3" onclick="playSong(this, 'أحلف بسماها وبترابها', 'عبد الحليم حافظ')">
+            <!-- 2. يا مصر بتعمليها إزاي -->
+            <li class="song-item" data-src="https://archive.org/download/MasrBet3mlehaEzay/MasrBet3mlehaEzay.mp3" onclick="playSong(this, 'يا مصر بتعمليها إزاي', 'آمال ماهر')">
                 <div class="song-info">
-                    <span class="song-title">أحلف بسماها وبترابها</span>
-                    <span class="song-artist">العندليب - عبد الحليم حافظ</span>
+                    <span class="song-title">يا مصر بتعمليها إزاي</span>
+                    <span class="song-artist">آمال ماهر</span>
                 </div>
                 <button class="play-btn">▶</button>
             </li>
 
-            <li class="song-item" data-src="https://archive.org/download/Om-Kalthoum-Masr-Tati-Fi-Khatiri/Masr-Tati-Fi-Khatiri.mp3" onclick="playSong(this, 'مصر التي في خاطري', 'أم كلثوم')">
-                <div class="song-info">
-                    <span class="song-title">مصر التي في خاطري</span>
-                    <span class="song-artist">كوكب الشرق - أم كلثوم</span>
-                </div>
-                <button class="play-btn">▶</button>
-            </li>
-
+            <!-- 3. يا حبيبتي يا مصر -->
             <li class="song-item" data-src="https://archive.org/download/Shadia-Ya-Habibty-Ya-Masr/Ya-Habibty-Ya-Masr.mp3" onclick="playSong(this, 'يا حبيبتي يا مصر', 'شادية')">
                 <div class="song-info">
                     <span class="song-title">يا حبيبتي يا مصر</span>
-                    <span class="song-artist">صوت مصر - شادية</span>
+                    <span class="song-artist">شادية</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+
+            <!-- 4. أحلف بسماها وبترابها -->
+            <li class="song-item" data-src="https://archive.org/download/Ahlef-Bsamaha/ahlef-bsamaha.mp3" onclick="playSong(this, 'أحلف بسماها وبترابها', 'عبد الحليم حافظ')">
+                <div class="song-info">
+                    <span class="song-title">أحلف بسماها وبترابها (من أغاني الثورة الخالدة)</span>
+                    <span class="song-artist">عبد الحليم حافظ</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+
+            <!-- 5. تسلم الأيادي -->
+            <li class="song-item" data-src="https://archive.org/download/TeslamElAyady/TeslamElAyady.mp3" onclick="playSong(this, 'تسلم الأيادي', 'مجموعة من الفنانين')">
+                <div class="song-info">
+                    <span class="song-title">تسلم الأيادي</span>
+                    <span class="song-artist">اوبريت احتفالات القوات المسلحة</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+
+            <!-- 6. مش من بلدنا -->
+            <li class="song-item" data-src="https://archive.org/download/MeshMenBaladna/MeshMenBaladna.mp3" onclick="playSong(this, 'مش من بلدنا إللي ما يحبش بلدنا', 'محمد ثروت')">
+                <div class="song-info">
+                    <span class="song-title">مش من بلدنا (إللي ما يحبش بلدنا)</span>
+                    <span class="song-artist">محمد ثروت</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+
+            <!-- 7. فيها حاجة حلوة -->
+            <li class="song-item" data-src="https://archive.org/download/FehaHagaHelwa/FehaHagaHelwa.mp3" onclick="playSong(this, 'فيها حاجة حلوة', 'ريهام عبد الحكيم / فيلم عسل إسود')">
+                <div class="song-info">
+                    <span class="song-title">فيها حاجة حلوة</span>
+                    <span class="song-artist">ريهام عبد الحكيم</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+
+            <!-- 8. صوت الحرية (من أغاني ثورة يناير) -->
+            <li class="song-item" data-src="https://archive.org/download/SoutAlHoreya/SoutAlHoreya.mp3" onclick="playSong(this, 'صوت الحرية', 'كايروكي وهاني عادل')">
+                <div class="song-info">
+                    <span class="song-title">صوت الحرية (من أغاني الثورة)</span>
+                    <span class="song-artist">فرقة كايروكي</span>
                 </div>
                 <button class="play-btn">▶</button>
             </li>
@@ -205,7 +245,7 @@
     </div>
 
     <footer>
-        تطبيق وطني مصري مخصص © 2026
+        المكتبة الوطنية المصرية الشاملة © 2026
     </footer>
 
     <script>
@@ -217,21 +257,20 @@
             const songSrc = element.getAttribute('data-src');
             source.src = songSrc;
             
-            // تحديث اسم الأغنية الحالية
+            // تحديث العنوان الحالي للمشغل
             currentTitle.innerText = `${title} - ${artist}`;
             
-            // إعادة تحميل وتأكيد التشغيل
+            // إعادة تحميل الصوت وتشغيله
             player.load();
             player.play().catch(error => {
-                console.log("التشغيل التلقائي يحتاج إلى تفاعل من المستخدم أولاً.");
+                console.log("تنبيه: يحتاج المتصفح لتفاعل يدوي لتشغيل الصوت أول مرة.");
             });
 
-            // تحديث الكلاس النشط في القائمة
+            // تحديث مظهر الصف النشط في القائمة
             const items = document.querySelectorAll('.song-item');
             items.forEach(item => item.classList.remove('active'));
             element.classList.add('active');
         }
     </script>
 </body>
-  </html>
-      
+</html>
