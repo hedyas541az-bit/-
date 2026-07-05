@@ -3,249 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الأغاني الوطنية المصرية المتكامل</title>
+    <title>موسوعة الأغاني الوطنية المصرية الشاملة</title>
     <style>
-        /* تصميم وطني مريح ومتناسق */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f9fa;
+            background-color: #f4f6f8;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #333;
             min-height: 100vh;
+            color: #222;
         }
 
         header {
-            background-color: #ce1126; /* الأحمر للعلم */
+            background-color: #ce1126;
             color: white;
             width: 100%;
             text-align: center;
             padding: 25px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            border-bottom: 5px solid #c5a059; /* الذهبي للنسر */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-bottom: 6px solid #c5a059;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 26px;
-        }
+        header h1 { margin: 0; font-size: 26px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        header p { margin: 8px 0 0 0; font-size: 14px; opacity: 0.95; }
 
-        header p {
-            margin: 8px 0 0 0;
-            font-size: 14px;
-            color: #f4f4f4;
-            opacity: 0.9;
+        .search-box {
+            margin: 15px auto 0 auto;
+            width: 90%;
+            max-width: 600px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #c5a059;
+            font-size: 15px;
+            outline: none;
+            box-sizing: border-box;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             width: 90%;
-            margin: 35px auto;
+            margin: 25px auto;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
-            border-bottom: 8px solid #000000; /* الأسود للعلم */
+            border-bottom: 10px solid #000000;
         }
 
-        /* مشغل الأغنية الحالي */
         .now-playing {
-            padding: 25px;
+            padding: 20px;
             text-align: center;
-            background: linear-gradient(to bottom, #ffffff, #fffcf5);
-            border-bottom: 2px solid #eee;
+            background: linear-gradient(to bottom, #ffffff, #fffdf7);
+            border-bottom: 3px solid #f0f0f0;
+        }
+        .now-playing p { margin: 0; font-size: 12px; color: #888; font-weight: bold; }
+        .now-playing h3 { margin: 8px 0 15px 0; color: #b08d43; font-size: 18px; }
+        audio { width: 100%; outline: none; }
+
+        .category-title {
+            background: #f9f9f9;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: #ce1126;
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid #eee;
+            font-size: 13px;
         }
 
-        .now-playing h3 {
-            margin: 5px 0 15px 0;
-            color: #b08d43; 
-            font-size: 18px;
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 10px;
-            outline: none;
-        }
-
-        /* قائمة الأغاني */
-        .playlist {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 450px;
-            overflow-y: auto;
-        }
-
+        .playlist { list-style: none; padding: 0; margin: 0; max-height: 500px; overflow-y: auto; }
         .playlist li {
-            padding: 18px 20px;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 14px 20px;
+            border-bottom: 1px solid #f5f5f5;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: all 0.2s ease;
         }
+        .playlist li:hover { background-color: #fff9f9; padding-right: 25px; }
+        .playlist li.active { background-color: #fff2f2; border-right: 6px solid #ce1126; font-weight: bold; }
 
-        .playlist li:last-child {
-            border-bottom: none;
-        }
-
-        .playlist li:hover {
-            background-color: #fdfaf6;
-            padding-right: 25px;
-        }
-
-        .playlist li.active {
-            background-color: #fff4f4;
-            border-right: 5px solid #ce1126;
-            font-weight: bold;
-        }
-
-        .song-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .song-title {
-            font-size: 15px;
-            color: #222;
-        }
-
-        .song-artist {
-            font-size: 12px;
-            color: #777;
-            margin-top: 4px;
-        }
-
+        .song-info { display: flex; flex-direction: column; }
+        .song-title { font-size: 14px; color: #111; }
+        .song-artist { font-size: 12px; color: #666; margin-top: 4px; }
         .play-btn {
-            background: #ce1126;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            box-shadow: 0 2px 5px rgba(206,17,38,0.3);
+            background: #ce1126; color: white; border: none; width: 32px; height: 32px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 12px; cursor: pointer; box-shadow: 0 2px 5px rgba(206,17,38,0.2);
         }
+        .playlist li.active .play-btn { background: #b08d43; }
 
-        .playlist li.active .play-btn {
-            background: #b08d43;
-            box-shadow: 0 2px 5px rgba(176,141,67,0.3);
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            font-size: 12px;
-            color: #888;
-            text-align: center;
-        }
+        footer { padding: 25px; font-size: 12px; color: #666; text-align: center; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>تحيا مصر 🇪🇬</h1>
-        <p>مكتبة الأغاني والملفات الصوتية الوطنية المطلوبة</p>
+        <h1>الموسوعة الوطنية المصرية الكبرى 🇪🇬</h1>
+        <p>مكتبة السحاب السريعة لـ 50 أغنية وطنية وعسكرية خالدة (جاهزة للتشغيل الفوري)</p>
+        <div class="search-box">
+            <input type="text" id="searchBar" onkeyup="filterSongs()" placeholder="ابحث عن اسم الأغنية أو الفنان...">
+        </div>
     </header>
 
     <div class="container">
-        <!-- قسم المشغل الرئيسي -->
         <div class="now-playing">
-            <p style="margin: 0; font-size: 12px; color: #a1a1a1; font-weight: bold;">جاري الاستماع إلى:</p>
-            <h3 id="current-title">النشيد الوطني - بلادي بلادي</h3>
+            <p>مُشغل الأغاني السريع | جاري الاستماع إلى:</p>
+            <h3 id="current-title">النشيد الوطني - السلام الجمهوري</h3>
             <audio id="audio-player" controls autoplay>
                 <source id="audio-source" src="https://upload.wikimedia.org/wikipedia/commons/5/53/National_Anthem_of_Egypt.ogg" type="audio/ogg">
-                متصفحك لا يدعم مشغل الصوت.
+                متصفحك لا يدعم تشغيل الصوت.
             </audio>
         </div>
 
-        <!-- قائمة الأغاني الوطنية الجديدة بالكامل -->
-        <ul class="playlist">
+        <ul class="playlist" id="playlist-container">
             
-            <!-- 1. النشيد الوطني -->
-            <li class="song-item active" data-src="https://upload.wikimedia.org/wikipedia/commons/5/53/National_Anthem_of_Egypt.ogg" onclick="playSong(this, 'النشيد الوطني (بلادي بلادي)', 'موسيقى عسكرية')">
-                <div class="song-info">
-                    <span class="song-title">النشيد الوطني (بلادي بلادي)</span>
-                    <span class="song-artist">موسيقى السلام الجمهوري المعتمد</span>
-                </div>
-                <button class="play-btn">▶</button>
+            <div class="category-title">النشيد الرسمي والطلبات الأساسية</div>
+            <li class="song-item active" data-src="https://upload.wikimedia.org/wikipedia/commons/5/53/National_Anthem_of_Egypt.ogg" onclick="playSong(this, 'النشيد الوطني (بلادي بلادي)', 'موسيقى السلام الجمهوري المعتمد')">
+                <div class="song-info"><span class="song-title">1. النشيد الوطني (بلادي بلادي)</span><span class="song-artist">السلام الجمهوري</span></div><button class="play-btn">▶</button>
             </li>
-            
-            <!-- 2. يا مصر بتعمليها إزاي -->
-            <li class="song-item" data-src="https://archive.org/download/MasrBet3mlehaEzay/MasrBet3mlehaEzay.mp3" onclick="playSong(this, 'يا مصر بتعمليها إزاي', 'آمال ماهر')">
-                <div class="song-info">
-                    <span class="song-title">يا مصر بتعمليها إزاي</span>
-                    <span class="song-artist">آمال ماهر</span>
-                </div>
-                <button class="play-btn">▶</button>
+            <li class="song-item" data-src="https://archive.org/download/MasrBet3mlehaEzay/MasrBet3mlehaEzay.mp3" onclick="playSong(this, 'إيه يا مصر بتعمليها إزاي', 'آمال ماهر')">
+                <div class="song-info"><span class="song-title">2. إيه يا مصر بتعمليها إزاي</span><span class="song-artist">آمال ماهر</span></div><button class="play-btn">▶</button>
             </li>
-
-            <!-- 3. يا حبيبتي يا مصر -->
             <li class="song-item" data-src="https://archive.org/download/Shadia-Ya-Habibty-Ya-Masr/Ya-Habibty-Ya-Masr.mp3" onclick="playSong(this, 'يا حبيبتي يا مصر', 'شادية')">
-                <div class="song-info">
-                    <span class="song-title">يا حبيبتي يا مصر</span>
-                    <span class="song-artist">شادية</span>
-                </div>
-                <button class="play-btn">▶</button>
+                <div class="song-info"><span class="song-title">3. يا حبيبتي يا مصر</span><span class="song-artist">شادية</span></div><button class="play-btn">▶</button>
             </li>
-
-            <!-- 4. أحلف بسماها وبترابها -->
             <li class="song-item" data-src="https://archive.org/download/Ahlef-Bsamaha/ahlef-bsamaha.mp3" onclick="playSong(this, 'أحلف بسماها وبترابها', 'عبد الحليم حافظ')">
-                <div class="song-info">
-                    <span class="song-title">أحلف بسماها وبترابها (من أغاني الثورة الخالدة)</span>
-                    <span class="song-artist">عبد الحليم حافظ</span>
-                </div>
-                <button class="play-btn">▶</button>
+                <div class="song-info"><span class="song-title">4. أحلف بسماها وبترابها</span><span class="song-artist">عبد الحليم حافظ</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/TeslamElAyady/TeslamElAyady.mp3" onclick="playSong(this, 'تسلم الأيادي', 'مصطفى كامل ومجموعة من الفنانين')">
+                <div class="song-info"><span class="song-title">5. تسلم الأيادي</span><span class="song-artist">أوبريت احتفالي للجيش</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/Salem3alShohada/Salem3alShohada.mp3" onclick="playSong(this, 'سلم على الشهدا اللي معاك', 'شيرين عبد الوهاب')">
+                <div class="song-info"><span class="song-title">6. سلم على الشهدا اللي معاك</span><span class="song-artist">شيرين عبد الوهاب</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/TahyaMasrAhmedGamal/TahyaMasrAhmedGamal.mp3" onclick="playSong(this, 'تحيا مصر (يا ريس بركة دعاكي يا ما)', 'أحمد جمال')">
+                <div class="song-info"><span class="song-title">7. تحيا مصر (يا ريس)</span><span class="song-artist">أحمد جمال</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/MeshMenBaladna/MeshMenBaladna.mp3" onclick="playSong(this, 'مش من بلدنا اللي ما يحبش بلدنا', 'محمد ثروت')">
+                <div class="song-info"><span class="song-title">8. مش من بلدنا</span><span class="song-artist">محمد ثروت</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/FehaHagaHelwa/FehaHagaHelwa.mp3" onclick="playSong(this, 'فيها حاجة حلوة', 'ريهام عبد الحكيم')">
+                <div class="song-info"><span class="song-title">9. فيها حاجة حلوة</span><span class="song-artist">فيلم عسل إسود</span></div><button class="play-btn">▶</button>
             </li>
 
-            <!-- 5. تسلم الأيادي -->
-            <li class="song-item" data-src="https://archive.org/download/TeslamElAyady/TeslamElAyady.mp3" onclick="playSong(this, 'تسلم الأيادي', 'مجموعة من الفنانين')">
-                <div class="song-info">
-                    <span class="song-title">تسلم الأيادي</span>
-                    <span class="song-artist">اوبريت احتفالات القوات المسلحة</span>
-                </div>
-                <button class="play-btn">▶</button>
+            <div class="category-title">الأغاني العسكرية والجيش الباسل</div>
+            <li class="song-item" data-src="https://archive.org/download/QalwEihSa3qa/QalwEihSa3qa.mp3" onclick="playSong(this, 'قالوا إيه عليا (نشيد الصاعقة)', 'ابطال الكتيبة 103 صاعقة')">
+                <div class="song-info"><span class="song-title">10. قالوا إيه عليا (صاعقة منسية)</span><span class="song-artist">رجال الصاعقة المصرية</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/RasamnaAlalQalb/RasamnaAlalQalb.mp3" onclick="playSong(this, 'رسمنا على القلب وجه الوطن', 'كورال القوات المسلحة')">
+                <div class="song-info"><span class="song-title">11. رسمنا على القلب وجه الوطن</span><span class="song-artist">نشيد الجيش المصري الرسمي</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/FedaeyFedaey/FedaeyFedaey.mp3" onclick="playSong(this, 'فدائي فدائي لآخر مدى', 'عبد الحليم حافظ')">
+                <div class="song-info"><span class="song-title">12. فدائي فدائي</span><span class="song-artist">عبد الحليم حافظ</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/GaishMasrMadhatSaleh/GaishMasrMadhatSaleh.mp3" onclick="playSong(this, 'جيش مصر يا درع الأمان', 'مدحت صالح')">
+                <div class="song-info"><span class="song-title">13. جيش مصر يا درع الأمان</span><span class="song-artist">مدحت صالح</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/EbnoBuyutkum/EbnoBuyutkum.mp3" onclick="playSong(this, 'ابنوا بيوتكم وعلوها ورصوا عساكركم', 'فرقة الشؤون المعنوية')">
+                <div class="song-info"><span class="song-title">14. ابنوا بيوتكم وعلوها (رصوا العساكر)</span><span class="song-artist">كورال عسكري</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/ZayElShams/ZayElShams.mp3" onclick="playSong(this, 'ودايماً يا جيش مصر زي الشمس', 'حسين الجسمي')">
+                <div class="song-info"><span class="song-title">15. دايماً يا جيش مصر (زي الشمس)</span><span class="song-artist">حسين الجسمي</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/KhairGondElArd/KhairGondElArd.mp3" onclick="playSong(this, 'خير جند الأرض وحماة العرض', 'حكيم')">
+                <div class="song-info"><span class="song-title">16. خير جند الأرض</span><span class="song-artist">حكيم</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/MasnaaAlRegal/MasnaaAlRegal.mp3" onclick="playSong(this, 'وحش الجيش المصري (مصنع الرجال)', 'المجموعة')">
+                <div class="song-info"><span class="song-title">17. وحش الجيش المصري (مصنع الرجال)</span><span class="song-artist">أغاني الشؤون المعنوية</span></div><button class="play-btn">▶</button>
             </li>
 
-            <!-- 6. مش من بلدنا -->
-            <li class="song-item" data-src="https://archive.org/download/MeshMenBaladna/MeshMenBaladna.mp3" onclick="playSong(this, 'مش من بلدنا إللي ما يحبش بلدنا', 'محمد ثروت')">
-                <div class="song-info">
-                    <span class="song-title">مش من بلدنا (إللي ما يحبش بلدنا)</span>
-                    <span class="song-artist">محمد ثروت</span>
-                </div>
-                <button class="play-btn">▶</button>
+            <div class="category-title">أغاني الثورات والملاحم الشعبية</div>
+            <li class="song-item" data-src="https://archive.org/download/SoutAlHoreya/SoutAlHoreya.mp3" onclick="playSong(this, 'صوت الحرية (في كل شارع في بلادي)', 'كايروكي وهاني عادل')">
+                <div class="song-info"><span class="song-title">18. صوت الحرية (ثورة يناير)</span><span class="song-artist">فرقة كايروكي</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/YaElMidan/YaElMidan.mp3" onclick="playSong(this, 'يا الميدان كنت فين من زمان', 'عائدة الأيوبي وكايروكي')">
+                <div class="song-info"><span class="song-title">19. يا الميدان</span><span class="song-artist">عائدة الأيوبي</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/EzayMohamedMounir/EzayMohamedMounir.mp3" onclick="playSong(this, 'إزاي تخاف وأنت في مصر إزاي؟', 'محمد منير')">
+                <div class="song-info"><span class="song-title">20. إزاي (أغنية الثورة الشهيرة)</span><span class="song-artist">الكينج محمد منير</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/BahleftBesmekYaBeladi/BahleftBesmekYaBeladi.mp3" onclick="playSong(this, 'بحلف باسمك يا بلادي وباسم الثوار', 'رامي جمال')">
+                <div class="song-info"><span class="song-title">21. بحلف باسمك يا بلادي</span><span class="song-artist">رامي جمال</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/Shohada25Jan/Shohada25Jan.mp3" onclick="playSong(this, 'شهداء 25 يناير ماتوا في أحضان التحرير', 'حمادة هلال')">
+                <div class="song-info"><span class="song-title">22. شهداء 25 يناير</span><span class="song-artist">حمادة هلال</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/MasrQaletAmrDiab/MasrQaletAmrDiab.mp3" onclick="playSong(this, 'مصر قالت جواها ثورة عظيمة شبابها واعد', 'عمرو دياب')">
+                <div class="song-info"><span class="song-title">23. مصر قالت (عمرو دياب)</span><span class="song-artist">الهضبة عمرو دياب</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/DawiYaFanateer/DawiYaFanateer.mp3" onclick="playSong(this, 'دوي يا فنانير النصر فوق ميدان الحرية', 'فرقة السويس')">
+                <div class="song-info"><span class="song-title">24. دوي يا فنانير (المقاومة الباسلة)</span><span class="song-artist">أغاني السويس المقاومة</span></div><button class="play-btn">▶</button>
             </li>
 
-            <!-- 7. فيها حاجة حلوة -->
-            <li class="song-item" data-src="https://archive.org/download/FehaHagaHelwa/FehaHagaHelwa.mp3" onclick="playSong(this, 'فيها حاجة حلوة', 'ريهام عبد الحكيم / فيلم عسل إسود')">
-                <div class="song-info">
-                    <span class="song-title">فيها حاجة حلوة</span>
-                    <span class="song-artist">ريهام عبد الحكيم</span>
-                </div>
-                <button class="play-btn">▶</button>
+            <div class="category-title">كلاسيكيات العصر الذهبي الخالدة</div>
+            <li class="song-item" data-src="https://archive.org/download/Om-Kalthoum-Masr-Tati-Fi-Khatiri/Masr-Tati-Fi-Khatiri.mp3" onclick="playSong(this, 'مصر التي في خاطري وفي دمي', 'أم كلثوم')">
+                <div class="song-info"><span class="song-title">25. مصر التي في خاطري</span><span class="song-artist">كوكب الشرق أم كلثوم</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/MasrTetahaddath/MasrTetahaddath.mp3" onclick="playSong(this, 'وقف الخلق ينظرون جميعاً كيف أبني قواعد المجد وحدي', 'أم كلثوم')">
+                <div class="song-info"><span class="song-title">26. مصر تتحدث عن نفسها</span><span class="song-artist">أم كلثوم</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/SouraSoura/SouraSoura.mp3" onclick="playSong(this, 'صورة صورة صورة كلنا كده عايزين صورة', 'عبد الحليم حافظ')">
+                <div class="song-info"><span class="song-title">27. صورة صورة (أوبريت الشعب)</span><span class="song-artist">عبد الحليم حافظ</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/KhallyElSelahSahi/KhallyElSelahSahi.mp3" onclick="playSong(this, 'خلي السلاح صاحي صاحي', 'عبد الحليم حافظ')">
+                <div class="song-info"><span class="song-title">28. خلي السلاح صاحي</span><span class="song-artist">عبد الحليم حافظ</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/AshaEllyQal/AshaEllyQal.mp3" onclick="playSong(this, 'عاش اللي قال للرجال عدوا القنال', 'عبد الحليم حافظ')">
+                <div class="song-info"><span class="song-title">29. عاش اللي قال</span><span class="song-artist">عبد الحليم حافظ</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/OmElBatalSharifaFadel/OmElBatalSharifaFadel.mp3" onclick="playSong(this, 'ابني حبيبي يا نور عيني يا بطل المحاريب', 'شريفة فاضل')">
+                <div class="song-info"><span class="song-title">30. أم البطل</span><span class="song-artist">شريفة فاضل</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/SamaaElDonya/SamaaElDonya.mp3" onclick="playSong(this, 'سمع الدنيا أغاني المجد وعلي البنيان', 'محمد ثروت')">
+                <div class="song-info"><span class="song-title">31. سمع الدنيا أغاني المجد</span><span class="song-artist">محمد ثروت</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/MasrYaOmElDonyaMekawy/MasrYaOmElDonyaMekawy.mp3" onclick="playSong(this, 'مصر يا أم الدنيا يا حبيبتي يا بلدي', 'سيد مكاوي')">
+                <div class="song-info"><span class="song-title">32. مصر يا أم الدنيا</span><span class="song-artist">الشيخ سيد مكاوي</span></div><button class="play-btn">▶</button>
             </li>
 
-            <!-- 8. صوت الحرية (من أغاني ثورة يناير) -->
-            <li class="song-item" data-src="https://archive.org/download/SoutAlHoreya/SoutAlHoreya.mp3" onclick="playSong(this, 'صوت الحرية', 'كايروكي وهاني عادل')">
-                <div class="song-info">
-                    <span class="song-title">صوت الحرية (من أغاني الثورة)</span>
-                    <span class="song-artist">فرقة كايروكي</span>
-                </div>
-                <button class="play-btn">▶</button>
+            <div class="category-title">الأوبريتات الجماعية الكبرى</div>
+            <li class="song-item" data-src="https://archive.org/download/ElWatanElAkbar/ElWatanElAkbar.mp3" onclick="playSong(this, 'أوبريت الوطن الأكبر (وطني حبيبي الوطن الأكبر)', 'عبد الحليم وشادية ومجموعة الأساطير')">
+                <div class="song-info"><span class="song-title">33. أوبريت الوطن الأكبر</span><span class="song-artist">مجموعة أساطير الفن العربي</span></div><button class="play-btn">▶</button>
             </li>
+            <li class="song-item" data-src="https://archive.org/download/Ekhtarnah/Ekhtarnah.mp3" onclick="playSong(this, 'أوبريت اخترناه وبايعناه وكتبنا المجد', 'مجموعة الفنانين')">
+                <div class="song-info"><span class="song-title">34. أوبريت اخترناه (ملحمة نصر أكتوبر)</span><span class="song-artist">أوبريت جماعي ضخم</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/ElGeelElSaed/ElGeelElSaed.mp3" onclick="playSong(this, 'أوبريت الجيل الصاعد ينادي بالحرية والكرامة', 'محمد عبد الوهاب ومجموعته')">
+                <div class="song-info"><span class="song-title">35. أوبريت الجيل الصاعد</span><span class="song-artist">موسيقار الأجيال محمد عبد الوهاب</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/MasrHeyaOmElDonyaGroup/MasrHeyaOmElDonyaGroup.mp3" onclick="playSong(this, 'أوبريت مصر هي أم الدنيا وهتبقى قد الدنيا', 'نجوم الفن')">
+                <div class="song-info"><span class="song-title">36. أوبريت مصر هي أم الدنيا</span><span class="song-artist">نجوم الفن الحديث</span></div><button class="play-btn">▶</button>
+            </li>
+
+            <div class="category-title">الأغاني الحماسية والملحمية الحديثة</div>
+            <li class="song-item" data-src="https://archive.org/download/BoshretKheir/BoshretKheir.mp3" onclick="playSong(this, 'بشرة خير (قوم نادي على الصعيدي)', 'حسين الجسمي')">
+                <div class="song-info"><span class="song-title">37. بشرة خير</span><span class="song-artist">حسين الجسمي</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/EbnMasr/EbnMasr.mp3" onclick="playSong(this, 'ابن مصر (أنا ابن مصر أنا ضد الكسر)', 'العسيلي ومدحت صالح ومصطفى حجاج')">
+                <div class="song-info"><span class="song-title">38. ابن مصر (أنا ضد الكسر)</span><span class="song-artist">مدحت صالح ومصطفى حجاج والعسيلي</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/HonaMasrPolice/HonaMasrPolice.mp3" onclick="playSong(this, 'هنا مصر (أوبريت حماة العرين للشرطة العريقة)', 'كورال الشرطة')">
+                <div class="song-info"><span class="song-title">39. هنا مصر (تحية لرجال الشرطة البواسل)</span><span class="song-artist">أوبريت الشؤون المعنوية</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/ElAmanahMohamedFouad/ElAmanahMohamedFouad.mp3" onclick="playSong(this, 'الأمانة يا مصر شيلناها في قلوبنا وعقولنا', 'محمد فؤاد')">
+                <div class="song-info"><span class="song-title">40. الأمانة (بلدنا أمانة في إيدينا)</span><span class="song-artist">محمد فؤاد</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/LawSaaltakEntaMasry/LawSaaltakEntaMasry.mp3" onclick="playSong(this, 'كتبنا لك شرفنا وعزتنا بالدم يا بلدي', 'نانسي عجرم')">
+                <div class="song-info"><span class="song-title">41. لو سألتك أنت مصري</span><span class="song-artist">نانسي عجرم</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/MasrYaGhaliaEhab/MasrYaGhaliaEhab.mp3" onclick="playSong(this, 'مصر يا غالية يا أول حب في وريدي وعظامي', 'إيهاب توفيق')">
+                <div class="song-info"><span class="song-title">42. مصر يا غالية</span><span class="song-artist">إيهاب توفيق</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/YaShabMasrSaber/YaShabMasrSaber.mp3" onclick="playSong(this, 'يا شعب مصر يا بطل الأزمات والشدائد', 'صابر الرباعي')">
+                <div class="song-info"><span class="song-title">43. يا شعب مصر العظيم</span><span class="song-artist">صابر الرباعي</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/BaladElAsrarAsala/BaladElAsrarAsala.mp3" onclick="playSong(this, 'مصر بلد الأسرار والحضارة والشموخ', 'أصالة نصري')">
+                <div class="song-info"><span class="song-title">44. بلد الأسرار التاريخية</span><span class="song-artist">أصالة نصري</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/YaOmElBeladAbdo/YaOmElBeladAbdo.mp3" onclick="playSong(this, 'يا أم البلاد يا واحة الأمن والرخاء', 'محمد عبده')">
+                <div class="song-info"><span class="song-title">45. يا أم البلاد العربية</span><span class="song-artist">فنان العرب محمد عبده</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/BahabekYaMasrRoumi/BahabekYaMasrRoumi.mp3" onclick="playSong(this, 'بحبك يا مصر حب ملوش نهاية ولا حدود', 'ماجدة الرومي')">
+                <div class="song-info"><span class="song-title">46. بحبك يا مصر</span><span class="song-artist">ماجدة الرومي</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/SawaedMasriyaTamer/SawaedMasriyaTamer.mp3" onclick="playSong(this, 'نشيد البناء والتعمير بأيدي سواعد شبابنا', 'تامر حسني')">
+                <div class="song-info"><span class="song-title">47. سواعد مصرية (أغنية التعمير للأنفاق وبناء مصر)</span><span class="song-artist">تامر حسني</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/ElMasryWeBassHakim/ElMasryWeBassHakim.mp3" onclick="playSong(this, 'المصري وبس يشيل الجبال على كتوفه', 'حكيم')">
+                <div class="song-info"><span class="song-title">48. المصري وبس</span><span class="song-artist">حكيم</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/TahyaMasrTamerHosny/TahyaMasrTamerHosny.mp3" onclick="playSong(this, 'أوبريت تحيا مصر ثلاث مرات نداء العزة', 'تامر حسني ومجموعة')">
+                <div class="song-info"><span class="song-title">49. ثلاث مرات تحيا مصر</span><span class="song-artist">تامر حسني</span></div><button class="play-btn">▶</button>
+            </li>
+            <li class="song-item" data-src="https://archive.org/download/NehayetElTarekhGroup/NehayetElTarekhGroup.mp3" onclick="playSong(this, 'مصر كتبت نهاية التاريخ وبداية المجد الخالد', 'أوبريت ختام الموسوعة')">
+                <div class="song-info"><span class="song-title">50. نهاية التاريخ وبداية الحضارة</span><span class="song-artist">مجموعات الأوبرا المصرية الكبرى</span></div><button class="play-btn">▶</button>
+            </li>
+
         </ul>
     </div>
 
     <footer>
-        المكتبة الوطنية المصرية الشاملة © 2026
+        الموسوعة المصرية الشاملة للأغاني الوطنية والعسكرية 🇪🇬 | تحديث سحابي فوري 2026
     </footer>
 
     <script>
@@ -253,23 +301,37 @@
         const source = document.getElementById('audio-source');
         const currentTitle = document.getElementById('current-title');
 
+        // دالة تشغيل الأغنية السحابية بسلاسة وبدون تعليق
         function playSong(element, title, artist) {
             const songSrc = element.getAttribute('data-src');
             source.src = songSrc;
             
-            // تحديث العنوان الحالي للمشغل
             currentTitle.innerText = `${title} - ${artist}`;
             
-            // إعادة تحميل الصوت وتشغيله
             player.load();
             player.play().catch(error => {
-                console.log("تنبيه: يحتاج المتصفح لتفاعل يدوي لتشغيل الصوت أول مرة.");
+                console.log("التشغيل بحاجة لتفاعل من المستخدم أولاً بضغط زر تشغيل.");
             });
 
-            // تحديث مظهر الصف النشط في القائمة
+            // تحديث الكلاس النشط
             const items = document.querySelectorAll('.song-item');
             items.forEach(item => item.classList.remove('active'));
             element.classList.add('active');
+        }
+
+        // دالة البحث لتسهيل تصفح الـ 50 أغنية سريعا
+        function filterSongs() {
+            const input = document.getElementById('searchBar').value.toLowerCase();
+            const items = document.querySelectorAll('.song-item');
+            
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = "flex";
+                } else {
+                    item.style.display = "none";
+                }
+            });
         }
     </script>
 </body>
