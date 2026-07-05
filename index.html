@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق الأغاني الوطنية المصرية</title>
+    <style>
+        /* تصميم عام يعبر عن الهوية المصرية */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #ce1126; /* الأحمر الملكي لعلم مصر */
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 25px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-bottom: 5px solid #c5a059; /* خط ذهبي كالنسر */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 8px 0 0 0;
+            font-size: 14px;
+            color: #f4f4f4;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 550px;
+            width: 90%;
+            margin: 35px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border-bottom: 8px solid #000000; /* الأسود لعلم مصر */
+        }
+
+        /* مشغل الأغنية الحالي */
+        .now-playing {
+            padding: 25px;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff, #fffcf5);
+            border-bottom: 2px solid #eee;
+        }
+
+        .now-playing h3 {
+            margin: 5px 0 15px 0;
+            color: #b08d43; 
+            font-size: 18px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            outline: none;
+        }
+
+        /* قائمة الأغاني */
+        .playlist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .playlist li {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .playlist li:last-child {
+            border-bottom: none;
+        }
+
+        .playlist li:hover {
+            background-color: #fdfaf6;
+            padding-right: 25px;
+        }
+
+        .playlist li.active {
+            background-color: #fff4f4;
+            border-right: 5px solid #ce1126;
+            font-weight: bold;
+        }
+
+        .song-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .song-title {
+            font-size: 15px;
+            color: #222;
+        }
+
+        .song-artist {
+            font-size: 12px;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        .play-btn {
+            background: #ce1126;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            box-shadow: 0 2px 5px rgba(206,17,38,0.3);
+        }
+
+        .playlist li.active .play-btn {
+            background: #b08d43;
+            box-shadow: 0 2px 5px rgba(176,141,67,0.3);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>تحيا مصر 🇪🇬</h1>
+        <p>مكتبة الأغاني الوطنية الخالدة</p>
+    </header>
+
+    <div class="container">
+        <!-- قسم المشغل الرئيسي -->
+        <div class="now-playing">
+            <p style="margin: 0; font-size: 12px; color: #a1a1a1; font-weight: bold;">جاري الاستماع إلى:</p>
+            <h3 id="current-title">النشيد الوطني - بلادي بلادي</h3>
+            <audio id="audio-player" controls autoplay>
+                <source id="audio-source" src="https://upload.wikimedia.org/wikipedia/commons/5/53/National_Anthem_of_Egypt.ogg" type="audio/ogg">
+                متصفحك لا يدعم مشغل الصوت.
+            </audio>
+        </div>
+
+        <!-- قائمة الأغاني الوطنية بروابط حقيقية ومباشرة -->
+        <ul class="playlist">
+            <li class="song-item active" data-src="https://upload.wikimedia.org/wikipedia/commons/5/53/National_Anthem_of_Egypt.ogg" onclick="playSong(this, 'النشيد الوطني - بلادي بلادي', 'كوريل مصر')">
+                <div class="song-info">
+                    <span class="song-title">النشيد الوطني (بلادي بلادي)</span>
+                    <span class="song-artist">موسيقى عسكرية</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+            
+            <li class="song-item" data-src="https://archive.org/download/Ahlef-Bsamaha/ahlef-bsamaha.mp3" onclick="playSong(this, 'أحلف بسماها وبترابها', 'عبد الحليم حافظ')">
+                <div class="song-info">
+                    <span class="song-title">أحلف بسماها وبترابها</span>
+                    <span class="song-artist">العندليب - عبد الحليم حافظ</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+
+            <li class="song-item" data-src="https://archive.org/download/Om-Kalthoum-Masr-Tati-Fi-Khatiri/Masr-Tati-Fi-Khatiri.mp3" onclick="playSong(this, 'مصر التي في خاطري', 'أم كلثوم')">
+                <div class="song-info">
+                    <span class="song-title">مصر التي في خاطري</span>
+                    <span class="song-artist">كوكب الشرق - أم كلثوم</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+
+            <li class="song-item" data-src="https://archive.org/download/Shadia-Ya-Habibty-Ya-Masr/Ya-Habibty-Ya-Masr.mp3" onclick="playSong(this, 'يا حبيبتي يا مصر', 'شادية')">
+                <div class="song-info">
+                    <span class="song-title">يا حبيبتي يا مصر</span>
+                    <span class="song-artist">صوت مصر - شادية</span>
+                </div>
+                <button class="play-btn">▶</button>
+            </li>
+        </ul>
+    </div>
+
+    <footer>
+        تطبيق وطني مصري مخصص © 2026
+    </footer>
+
+    <script>
+        const player = document.getElementById('audio-player');
+        const source = document.getElementById('audio-source');
+        const currentTitle = document.getElementById('current-title');
+
+        function playSong(element, title, artist) {
+            const songSrc = element.getAttribute('data-src');
+            source.src = songSrc;
+            
+            // تحديث اسم الأغنية الحالية
+            currentTitle.innerText = `${title} - ${artist}`;
+            
+            // إعادة تحميل وتأكيد التشغيل
+            player.load();
+            player.play().catch(error => {
+                console.log("التشغيل التلقائي يحتاج إلى تفاعل من المستخدم أولاً.");
+            });
+
+            // تحديث الكلاس النشط في القائمة
+            const items = document.querySelectorAll('.song-item');
+            items.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+</body>
+  </html>
+      
